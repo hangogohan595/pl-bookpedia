@@ -54,13 +54,15 @@ fun BookListItem(
         shape = RoundedCornerShape(32.dp),
         modifier = modifier
             .clickable(onClick = onClick),
-        color = LightBlue.copy(alpha = 0.2f)
+        color = LightBlue.copy(alpha = 0.2f),
     ) {
         Row(
             modifier = Modifier
                 .padding(16.dp)
                 .fillMaxWidth()
-                .height(IntrinsicSize.Min)
+                .height(IntrinsicSize.Min),
+            horizontalArrangement = Arrangement.spacedBy(16.dp),
+            verticalAlignment = Alignment.CenterVertically
         ) {
             BookListItemImageBox(book = book)
 
