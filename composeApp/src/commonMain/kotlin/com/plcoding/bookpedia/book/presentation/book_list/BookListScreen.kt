@@ -1,16 +1,24 @@
 package com.plcoding.bookpedia.book.presentation.book_list
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.widthIn
+import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRow
+import androidx.compose.material3.TabRowDefaults
+import androidx.compose.material3.TabRowDefaults.tabIndicatorOffset
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -41,7 +49,7 @@ fun BookListScreenRoot(
     BookListScreen(
         state = state,
         onAction = { action ->
-            when(action) {
+            when (action) {
                 is BookListAction.OnBookClick -> onBookClick(action.book)
                 else -> Unit
             }
@@ -57,6 +65,8 @@ fun BookListScreen(
     onAction: (BookListAction) -> Unit,
 ) {
     val keyboardController = LocalSoftwareKeyboardController.current
+    val pagerState = rememberPagerState { 2 }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -96,7 +106,15 @@ fun BookListScreen(
                     modifier = Modifier
                         .padding(vertical = 12.dp)
                         .widthIn(max = 700.dp)
-                        .fillMaxWidth()
+                        .fillMaxWidth(),
+                    containerColor = DesertWhite,
+                    indicator = { tabPositions ->
+                        TabRowDefaults.SecondaryIndicator(
+                            color = SandYellow,
+                            modifier = Modifier
+                                .tabIndicatorOffset(tabPositions[state.selectedTabIndex])
+                        )
+                    }
                 ) {
                     Tab(
                         selected = state.selectedTabIndex == 0,
@@ -132,6 +150,38 @@ fun BookListScreen(
                         )
                     }
                 }
+
+//                Spacer(
+//                    modifier = Modifier
+//                        .height(4.dp)
+//                )
+//
+//                HorizontalPager(
+//                    state = pagerState,
+//                    modifier = Modifier
+//                        .fillMaxWidth()
+//                        .weight(1f)
+//                ) { pageIndex ->
+//                    Box(
+//                        modifier = Modifier
+//                            .fillMaxSize(),
+//                        contentAlignment = Alignment.Center
+//                    ) {
+//                        when (pageIndex) {
+//                            0 -> {
+//                                if (state.isLoading) {
+//                                    CircularProgressIndicator()
+//                                } else {
+//                                    when()
+//                                }
+//                            }
+//
+//                            1 -> {
+//
+//                            }
+//                        }
+//                    }
+//                }
             }
         }
     }
