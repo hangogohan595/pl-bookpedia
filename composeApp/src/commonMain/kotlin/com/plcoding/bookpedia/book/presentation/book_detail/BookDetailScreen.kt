@@ -19,7 +19,7 @@ fun BookDetailScreenRoot(
         state = state,
         onAction = { action ->
             when (action) {
-                is BookDetailAction.OnBackClick -> onBackClick
+                is BookDetailAction.OnBackClick -> onBackClick()
                 else -> Unit
             }
 
