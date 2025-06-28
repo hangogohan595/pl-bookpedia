@@ -141,6 +141,8 @@ private fun BookDetailScreen(
                     }
                 }
 
+                println("Checking book details: ${state.book}")
+
                 if (state.book.languages.isNotEmpty()) {
                     TitledContent(
                         title = stringResource(Res.string.languages),
